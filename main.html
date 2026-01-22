@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>PDF Size Inflater | Premium Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="toggle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Developer Name Header -->
+    <div class="developer-header">
+        <h2 class="developer-name">E.H. Mahesh Chander</h2>
+    </div>
+
+    <main class="container">
+        <div class="glass-card">
+            <header>
+                <div class="logo">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Size<span class="highlight">Booster</span></span>
+                </div>
+                <h1>Increase PDF File Size</h1>
+                <p class="subtitle">Add dummy data to increase PDF file size.</p>
+            </header>
+
+            <div class="upload-zone" id="drop-zone">
+                <input type="file" id="file-input" accept="application/pdf" hidden>
+                <div class="icon-container">
+                    <i class="fa-regular fa-file-pdf"></i>
+                </div>
+                <h3>Drag & Drop your PDF here</h3>
+                <p>or <span class="browse-btn">browse files</span></p>
+                <p class="limit-text">Max recommended inflation: 2GB</p>
+            </div>
+
+            <div class="file-info hidden" id="file-info-section">
+                <div class="file-details">
+                    <i class="fa-solid fa-file-pdf file-icon"></i>
+                    <div class="text-info">
+                        <span class="filename" id="filename">document.pdf</span>
+                        <span class="filesize" id="original-size">Original: 2.5 MB</span>
+                    </div>
+                    <button class="remove-btn" id="remove-file"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="controls">
+                    <label for="target-size">Target Size (MB)</label>
+                    <div class="input-group">
+                        <input type="number" id="target-size-input" placeholder="e.g. 200" min="1">
+                        <span class="unit">MB</span>
+                    </div>
+
+                    <div class="settings-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="random-data-toggle">
+                            <span class="toggle-custom"></span>
+                            <span class="toggle-text">
+                                Prevent Compression (Randomize)
+                                <i class="fa-solid fa-circle-info info-icon"
+                                    title="Uses random data instead of zeros. Slower, but file won't shrink when zipped."></i>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="presets">
+                        <button class="preset-btn" data-size="50">50MB</button>
+                        <button class="preset-btn" data-size="100">100MB</button>
+                        <button class="preset-btn" data-size="200">200MB</button>
+                        <button class="preset-btn" data-size="500">500MB</button>
+                        <button class="preset-btn" data-size="1024">1GB</button>
+                        <button class="preset-btn" data-size="2048">2GB</button>
+                    </div>
+                </div>
+
+                <button class="action-btn" id="process-btn">
+                    <span>Inflate PDF</span>
+                    <i class="fa-solid fa-bolt"></i>
+                </button>
+            </div>
+
+            <div class="processing-state hidden" id="processing-state">
+                <div class="loader"></div>
+                <p id="status-text">Generating dummy data...</p>
+            </div>
+
+            <div class="result-section hidden" id="result-section">
+                <div class="success-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3>File Ready!</h3>
+                <p>Your file has been inflated to <span id="final-size-display">0 MB</span>.</p>
+                <button class="action-btn download" id="download-btn">
+                    <span>Download File</span>
+                    <i class="fa-solid fa-download"></i>
+                </button>
+                <button class="reset-link" id="reset-btn">Inflate another file</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

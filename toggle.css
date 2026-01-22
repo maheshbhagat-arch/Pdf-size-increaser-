@@ -1,0 +1,68 @@
+/* Toggle Switch */
+.settings-group {
+    margin-bottom: 20px;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-label input {
+    display: none;
+}
+
+.toggle-custom {
+    width: 44px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    position: relative;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    margin-right: 12px;
+}
+
+.toggle-custom::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.toggle-label input:checked+.toggle-custom {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: var(--primary);
+}
+
+.toggle-label input:checked+.toggle-custom::after {
+    transform: translateX(20px);
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.toggle-text {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-icon {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.info-icon:hover {
+    opacity: 1;
+}
