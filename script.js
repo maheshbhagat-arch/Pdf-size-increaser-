@@ -15,6 +15,7 @@ const finalSizeDisplay = document.getElementById('final-size-display');
 const downloadBtn = document.getElementById('download-btn');
 const resetBtn = document.getElementById('reset-btn');
 const randomToggle = document.getElementById('random-data-toggle');
+const inflateStartToggle = document.getElementById('inflate-start-toggle');
 
 let currentFile = null;
 let generatedBlob = null;
@@ -145,10 +146,11 @@ processBtn.addEventListener('click', async () => {
     processingState.classList.remove('hidden');
 
     const useRandomData = randomToggle.checked;
+    const inflateAtStart = inflateStartToggle.checked;
 
     setTimeout(async () => {
         try {
-            await inflatePdf(currentFile, targetBytes, useRandomData);
+            await inflatePdf(currentFile, targetBytes, useRandomData, inflateAtStart);
         } catch (error) {
             console.error(error);
             alert('An error occurred during processing: ' + error.message);
@@ -158,11 +160,11 @@ processBtn.addEventListener('click', async () => {
     }, 100);
 });
 
-async function inflatePdf(originalFile, targetSizeBytes, useRandomData) {
+async function inflatePdf(originalFile, targetSizeBytes, useRandomData, inflateAtStart) {
     const paddingNeeded = targetSizeBytes - originalFile.size;
 
     // Create chunks to avoid massive single array allocation
-    const chunks = [originalFile];
+    const chunks = inflateAtStart ? [] : [originalFile];
     let remaining = paddingNeeded;
     const CHUNK_SIZE = 50 * 1024 * 1024; // 50MB chunks
 
@@ -223,6 +225,10 @@ async function inflatePdf(originalFile, targetSizeBytes, useRandomData) {
         }
     }
 
+    if (inflateAtStart) {
+        chunks.push(originalFile);
+    }
+
     statusText.innerText = "Assembling PDF...";
     generatedBlob = new Blob(chunks, { type: 'application/pdf' });
 
@@ -239,7 +245,7 @@ downloadBtn.addEventListener('click', () => {
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = "inflated_" + currentFile.name;
+    a.download = "APL_" + currentFile.name;
     document.body.appendChild(a);
     a.click();
 
@@ -260,4 +266,5 @@ resetBtn.addEventListener('click', () => {
     presetBtns.forEach(btn => btn.classList.remove('active'));
     targetSizeInput.value = '';
     randomToggle.checked = false;
+    inflateStartToggle.checked = false;
 });
